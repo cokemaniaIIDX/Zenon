@@ -1,5 +1,8 @@
 # venv
 zenon/
+.env
+db.sqlite3
+*.pyc
 
 # Logs
 logs
