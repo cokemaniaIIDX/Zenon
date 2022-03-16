@@ -3,9 +3,11 @@
 JavaScriptを基礎の基礎からやり直し
 今回は`Dateオブジェクト`について仕様を確認しながらまとめてみました
 
+参考ページ : [mdn web docs - Date](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date)
+
 ## そもそもDateとは
 
-`Date` は、世界時間(UTC)の 1970/01/01 からの経過ミリ秒数 を表す`Number`の値を含んだオブジェクト
+`Date` は、世界時間(UTC)の 1970/01/01 からの経過ミリ秒数 を表す`Number`の値を含んだ`オブジェクト`
 
 ## 確認用コード
 
@@ -75,7 +77,7 @@ export default Calendar;
 ```
 
 関数としての`Date()`は`String`を返して、
-コンストラクタとしての`new Date()`(date1)は`Dateオブジェクト`を返していることが分かる
+コンストラクタとしての`new Date()`(date1)は`Dateオブジェクト`を返していることが分かります
 
 ## 静的メソッド
 
@@ -250,5 +252,13 @@ export default Calendar;
 > Today : Sun Dec 17 2023 12:35:15 GMT+0900 (日本標準時)
 ```
 
-setで指定した日時になっている
-当たり前だけど曜日はセットできない
+setで指定した日時になっていますね
+当たり前ですが曜日はセットできないですね
+
+### toString関係
+
+
+
+### その他
+
+その他にももう少しあったけど、あまり使えなさそうだったので割愛!
