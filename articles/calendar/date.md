@@ -257,7 +257,45 @@ setで指定した日時になっていますね
 
 ### toString関係
 
+- toString : 基本
+- toDateString : 何月何日何曜日までをHumanReadableな感じにする
+- toISOString : ISOに準拠した形にする
+- toJSON : toISOStringを使ってJSONをStringに変換する
+- toUTCString : UTCに変換
+- toLocaleString : 日本用の表示 ほかの国ではそれぞれその国独自の形に変換しているはず
 
+```js
+function Calendar() {
+
+  const Confirm = ()=> {
+    const Today = new Date();
+    console.log("toString: " + Today.toString())
+    console.log("toDateString: " + Today.toDateString())
+    console.log("toISOString: " + Today.toISOString())
+    console.log("toJSON: " + Today.toJSON())
+    console.log("toUTCString: " + Today.toUTCString())
+    console.log("toLocaleString: " + Today.toLocaleString())
+  }
+
+  return (
+    <div>
+      <input type="button" value="確認！" onClick={Confirm} />
+    </div>
+  )
+}
+export default Calendar;
+```
+
+*出力*
+
+```
+> toString: Wed Mar 16 2022 22:47:31 GMT+0900 (日本標準時)
+> toDateString: Wed Mar 16 2022
+> toISOString: 2022-03-16T13:47:31.638Z
+> toJSON: 2022-03-16T13:47:31.638Z
+> toUTCString: Wed, 16 Mar 2022 13:47:31 GMT
+> toLocaleString: 2022/3/16 22:47:31
+```
 
 ### その他
 

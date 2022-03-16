@@ -2,16 +2,12 @@ function Calendar() {
 
   const Confirm = ()=> {
     const Today = new Date();
-    console.log("Today : " + Today)
-
-    Today.setFullYear(2023)
-    Today.setMonth(11)
-    Today.setDate(17)
-    Today.setHours(12)
-    Today.setMinutes(35)
-    Today.setSeconds(15)
-
-    console.log("Today : " + Today)
+    console.log("toString: " + Today.toString())
+    console.log("toDateString: " + Today.toDateString())
+    console.log("toISOString: " + Today.toISOString())
+    console.log("toJSON: " + Today.toJSON())
+    console.log("toUTCString: " + Today.toUTCString())
+    console.log("toLocaleString: " + Today.toLocaleString())
   }
 
   return (
