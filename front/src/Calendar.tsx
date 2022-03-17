@@ -1,19 +1,54 @@
-function Calendar() {
+import React from "react";
 
-  const Confirm = ()=> {
-    const Today = new Date();
-    console.log("toString: " + Today.toString())
-    console.log("toDateString: " + Today.toDateString())
-    console.log("toISOString: " + Today.toISOString())
-    console.log("toJSON: " + Today.toJSON())
-    console.log("toUTCString: " + Today.toUTCString())
-    console.log("toLocaleString: " + Today.toLocaleString())
+interface Props {
+  item: string;
+  children: React.ReactNode;
+}
+
+const Calendar: React.VFC = () => {
+
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+
+  const Confirm = () => {
+    console.log(year)
+    console.log(typeof(year))
   }
 
   return (
     <div>
       <input type="button" value="確認！" onClick={Confirm} />
+      <div>
+        <h1>カレンダー</h1>
+        <h2>{year}年 {month}月</h2>
+        <table>
+          <thead>
+            <ListWeek />
+          </thead>
+        </table>
+      </div>
     </div>
   )
 }
+
+const ListWeek: React.VFC = () => {
+
+  const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+
+  return (
+    <tr>
+      {week.map((item, key) =>
+        <th key={key}><Week /></th>
+      )}
+    </tr>
+  )
+}
+
+const Week: React.VFC = () => {
+  return (
+    <p>あ</p>
+  )
+}
+
 export default Calendar;
