@@ -1,5 +1,7 @@
 import React from "react";
 
+// カレンダーを表示するコンポーネント
+
 const Calendar: React.VFC = () => {
 
   const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
@@ -32,6 +34,8 @@ const Calendar: React.VFC = () => {
   )
 }
 
+// 曜日ヘッダを表示するコンポーネント
+
 type ListWeekProps = {
   week: string[];
 }
@@ -48,6 +52,8 @@ const ListWeek: React.VFC<ListWeekProps> = (props) => {
     </tr>
   )
 }
+
+// カレンダーの中身(数字)を表示するコンポーネント
 
 type ListDaysProps = {
   dayOfWeek: number;
