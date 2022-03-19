@@ -122,3 +122,73 @@ const ListWeek: React.VFC<ListWeekProps> = (props) => {
 どちらかというと`type`のほうがよさそうなので、`type`を使っていくことにする
 
 - 参考 : [interfaceとtypeの違い、そして何を使うべきかについて](https://zenn.dev/luvmini511/articles/6c6f69481c2d17)
+
+
+### コンポーネントの分離
+
+曜日(日~土)を7つ並べて表示するのと、
+1週間における日付を7つ並べて表示するのは、
+中身が違う(曜日か日付かの違い)だけなので、統一できる
+
+週の日数の要素数分、中身を横に並べて表示するようにコンポーネントを分割する
+
+```tsx
+const Calendar: React.VFC = () => {
+
+  const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+  const days: string[] = ["1", "2", "3", "4", "5", "6", "7"]
+
+  return (
+    <div>
+      <input type="button" value="確認！" onClick={Confirm} />
+      <div>
+        <h1>カレンダー</h1>
+        <h2>{year}年 {month}月</h2>
+        <table>
+          <thead>
+            <ListContents list={week} /> {/* 呼び出すのはリストの中身を並べるだけの関数 */}
+          </thead>
+          <tbody>
+            <ListContents list={days} /> {/* 呼び出すのはリストの中身を並べるだけの関数 */}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+// 曜日リスト内の要素数分、中身を表示するコンポーネント
+
+type ListContentsProps = {
+  // 曜日リストの型宣言
+  list: string[];
+}
+
+const ListContents: React.VFC<ListContentsProps> = (props) => {
+
+  const weekList = props.list
+
+  return (
+    <DisplayContents list={weekList} /> {/* 中身を表示するのはこっち */}
+  )
+}
+
+// カレンダーの中身を表示するコンポーネント
+
+type DisplayContentsProps = {
+  list: string[];
+}
+
+const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
+
+  const week = props.list
+
+  return (
+    <tr>
+      {week.map((item, key) =>
+        <th key={key}>{item}</th>
+      )}
+    </tr>
+  )
+}
+```

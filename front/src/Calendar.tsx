@@ -5,6 +5,7 @@ import React from "react";
 const Calendar: React.VFC = () => {
 
   const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+  const days: string[] = ["1", "2", "3", "4", "5", "6", "7"]
   const date = new Date();
   const dayOfWeek = date.getDay();
   const year = date.getFullYear();
@@ -23,10 +24,10 @@ const Calendar: React.VFC = () => {
         <h2>{year}年 {month}月</h2>
         <table>
           <thead>
-            <ListWeek week={week} />
+            <ListContents list={week} />
           </thead>
           <tbody>
-            <ListDays dayOfWeek={dayOfWeek} />
+            <ListContents list={days} />
           </tbody>
         </table>
       </div>
@@ -34,35 +35,37 @@ const Calendar: React.VFC = () => {
   )
 }
 
-// 曜日ヘッダを表示するコンポーネント
+// 曜日リスト内の要素数分、中身を表示するコンポーネント
 
-type ListWeekProps = {
-  week: string[];
+type ListContentsProps = {
+  // 曜日リストの型宣言
+  list: string[];
 }
 
-const ListWeek: React.VFC<ListWeekProps> = (props) => {
+const ListContents: React.VFC<ListContentsProps> = (props) => {
 
-  const weekList = props.week
+  const weekList = props.list
 
   return (
-    <tr>
-      {weekList.map((item, key) =>
-        <th key={key}>{item}</th>
-      )}
-    </tr>
+    <DisplayContents list={weekList} />
   )
 }
 
-// カレンダーの中身(数字)を表示するコンポーネント
+// カレンダーの中身を表示するコンポーネント
 
-type ListDaysProps = {
-  dayOfWeek: number;
+type DisplayContentsProps = {
+  list: string[];
 }
 
-const ListDays: React.VFC<ListDaysProps> = (props) => {
+const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
+
+  const week = props.list
+
   return (
     <tr>
-      <td>{props.dayOfWeek}</td>
+      {week.map((item, key) =>
+        <th key={key}>{item}</th>
+      )}
     </tr>
   )
 }
