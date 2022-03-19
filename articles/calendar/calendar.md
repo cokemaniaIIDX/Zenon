@@ -242,5 +242,103 @@ const Calendar: React.VFC = () => {
 ### 実装
 
 ```tsx
+import React from "react";
 
+// カレンダーを表示するコンポーネント
+
+const Calendar: React.VFC = () => {
+
+  const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+  const days: string[] = [
+    "27", "28", "1", "2", "3", "4", "5",
+    "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "17", "18", "19",
+    "20", "21", "22", "23", "24", "25", "26",
+    "27", "28", "29", "30", "31", "1", "2", 
+    "3", "4", "5", "6", "7", "8", "9",
+  ]
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;  // getMonth() は 0-11 の数字で返ってくるので +1 する
+
+  return (
+    <div>
+      <input type="button" value="確認！" onClick={Confirm} />
+      <div>
+        <h1>カレンダー</h1>
+        <h2>{year}年 {month}月</h2>
+        <table>
+          <thead>
+            <ListContents weekList={week} contents={week} />
+          </thead>
+          <tbody>
+            <ListContents weekList={week} contents={days} />
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+// 曜日リスト内の要素数分、中身を表示するコンポーネント
+
+type ListContentsProps = {
+  // 曜日リストの型宣言
+  weekList: string[];
+  contents: string[];
+}
+
+const ListContents: React.VFC<ListContentsProps> = (props) => {
+
+  const listLength = props.weekList.length
+  const fullContents = props.contents
+
+  // contentsを多重配列として初期化
+  const contents: string[][] = []
+
+  for (let i = 0; i < fullContents.length / listLength; i++) {
+    contents.push(fullContents.slice(listLength*i, listLength*i + listLength))
+  }
+
+  return (
+    <>
+      {contents.map((item, key) => {
+        return (
+          <tr key={key}><DisplayContents contents={item} /></tr>
+        )
+      })}
+    </>
+  )
+}
+
+// カレンダーの中身を表示するコンポーネント
+
+type DisplayContentsProps = {
+  contents: string[];
+}
+
+const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
+
+  const contents = props.contents
+
+  return (
+    <>
+      {contents.map((item, key) =>
+        <th key={key}>{item}</th>
+      )}
+    </>
+  )
+}
+
+export default Calendar;
 ```
+
+- ListContents には 2つの配列をpropsとして渡す (曜日の配列, 月の日付の配列)
+  - 日付配列の要素数(=42)を曜日配列の要素数(=7)で割った回数(=週数=6)分、配列を作成して多重配列に格納する
+  - その際、sliceは(0,7),(7,14),...と、7の倍数で増えていくので、(listLength * i, listLength * i + listLength)となる
+  - returnの時
+    - <tr>が複数になるので、keyを指定しないとWarningが出る
+      - 要素<th>は、こっちはこっちでいる
+    - return ( {いきなり処理} )はむりなので、いったん`<></>`をかませる
+      - `<></>`は`フラグメント`という
+        - 参考 : [フラグメント - React 公式 Document](https://ja.reactjs.org/docs/fragments.html)
