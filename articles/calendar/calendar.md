@@ -336,6 +336,7 @@ export default Calendar;
 - ListContents には 2つの配列をpropsとして渡す (曜日の配列, 月の日付の配列)
   - 日付配列の要素数(=42)を曜日配列の要素数(=7)で割った回数(=週数=6)分、配列を作成して多重配列に格納する
   - その際、sliceは(0,7),(7,14),...と、7の倍数で増えていくので、(listLength * i, listLength * i + listLength)となる
+  - array.push()は参考[Array.prototype.push() - MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
   - returnの時
     - <tr>が複数になるので、keyを指定しないとWarningが出る
       - 要素<th>は、こっちはこっちでいる
