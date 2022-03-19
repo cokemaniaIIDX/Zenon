@@ -5,29 +5,21 @@ import React from "react";
 const Calendar: React.VFC = () => {
 
   const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
-  const days: string[] = [
-    "27", "28", "1", "2", "3", "4", "5",
-    "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "16", "17", "18", "19",
-    "20", "21", "22", "23", "24", "25", "26",
-    "27", "28", "29", "30", "31", "1", "2", 
-    "3", "4", "5", "6", "7", "8", "9",
-  ]
+  const days: string[] = []
   const date = new Date();
   const dayOfWeek = date.getDay();
   const year = date.getFullYear();
-  const month = date.getMonth() + 1;  // getMonth() は 0-11 の数字で返ってくるので +1 する
+  const month = date.getMonth();  // getMonth() は 0-11 の数字で返ってくるので +1 する
+  const today = date.getDate();
+  const lastDayOfThisMonth = new Date(year, month + 1, 0);
+  const lastDayOfLastMonth = new Date(year, month, 0);
 
   const Confirm = () => {
-    const list = week
-    const list2 = days
-    const dayList: string[][] = []
-
-    for (let i = 0; i < list2.length / list.length; i++) {
-      dayList.push(list2.slice(i*list.length,i*list.length + list.length))
-    }
-
-    console.log(dayList)
+    console.log(lastDayOfThisMonth)
+    console.log(lastDayOfLastMonth)
+    console.log("今日: " + year + "年 " + (month + 1) + "月 " + today + "日 " + week[dayOfWeek] + "曜日")
+    console.log("今月の最終日: " + year + "年" + (month + 1) + "月 " + lastDayOfThisMonth.getDate() + "日 " + week[lastDayOfThisMonth.getDay()] + "曜日")
+    console.log("先月の最終日: " +lastDayOfLastMonth.getFullYear() + "年 " + (lastDayOfLastMonth.getMonth() + 1)+ "月 " + lastDayOfLastMonth.getDate() + "日 " + week[lastDayOfLastMonth.getDay()] + "曜日")
   }
 
   return (
@@ -35,7 +27,7 @@ const Calendar: React.VFC = () => {
       <input type="button" value="確認！" onClick={Confirm} />
       <div>
         <h1>カレンダー</h1>
-        <h2>{year}年 {month}月</h2>
+        <h2>{year}年 {month + 1}月</h2>
         <table>
           <thead>
             <ListContents weekList={week} contents={week} />
