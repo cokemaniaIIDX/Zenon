@@ -18,8 +18,28 @@ const Calendar: React.VFC = () => {
     console.log(lastDayOfThisMonth)
     console.log(lastDayOfLastMonth)
     console.log("今日: " + year + "年 " + (month + 1) + "月 " + today + "日 " + week[dayOfWeek] + "曜日")
-    console.log("今月の最終日: " + year + "年" + (month + 1) + "月 " + lastDayOfThisMonth.getDate() + "日 " + week[lastDayOfThisMonth.getDay()] + "曜日")
-    console.log("先月の最終日: " +lastDayOfLastMonth.getFullYear() + "年 " + (lastDayOfLastMonth.getMonth() + 1)+ "月 " + lastDayOfLastMonth.getDate() + "日 " + week[lastDayOfLastMonth.getDay()] + "曜日")
+    console.log("今月の最終日: " + year + "年 " + (month + 1) + "月 " + lastDayOfThisMonth.getDate() + "日 " + week[lastDayOfThisMonth.getDay()] + "曜日")
+    console.log("先月の最終日: " + lastDayOfLastMonth.getFullYear() + "年 " + (lastDayOfLastMonth.getMonth() + 1)+ "月 " + lastDayOfLastMonth.getDate() + "日 " + week[lastDayOfLastMonth.getDay()] + "曜日")
+    console.log("先月最終日の曜日: " + week[lastDayOfLastMonth.getDay()] + "曜日")
+    console.log("表示する先月分の日数: " + (lastDayOfLastMonth.getDay() + 1))
+    console.log("今月の日数: " + lastDayOfThisMonth.getDate())
+    console.log("表示する来月分の日数: " + (42 - (lastDayOfThisMonth.getDate() + (lastDayOfLastMonth.getDay() + 1))))
+  }
+
+  const CreateDays = () => {
+    for (let i = 0; i < (lastDayOfLastMonth.getDay() + 1); i++) {
+      let addDay = lastDayOfLastMonth.getDate() - i;
+      days.push(addDay.toString())
+    }
+
+    for (let i = 1; i < (lastDayOfThisMonth.getDate() + 1); i++) {
+      days.push(i.toString())
+    }
+
+    for (let i = 1; i < (41 - lastDayOfThisMonth.getDate()); i++) {
+      days.push(i.toString())
+    }
+    console.log(days)
   }
 
   return (
@@ -36,6 +56,8 @@ const Calendar: React.VFC = () => {
             <ListContents weekList={week} contents={days} />
           </tbody>
         </table>
+        <p>days: [{days}]</p>
+        <input type="button" value="createDays" onClick={CreateDays} />
       </div>
     </div>
   )
