@@ -1,30 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 
-// カレンダーの日付リストを作成し、表示用コンポーネントに
+// カレンダーの日付リストを作成し、表示用コンポーネントに渡す
 
 const CreateCalendar: React.VFC = () => {
 
   const days: string[] = [];
+  const daysNextMonth: string[] = [];
   const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth(); // getMonth() は 0-11 の数字で返ってくるので +1 する
-  const lastDayOfThisMonth = new Date(year, month + 1, 0);
+  const [year, setYear] = useState<number>(date.getFullYear());
+  const [month, setMonth] = useState<number>(date.getMonth());
+  const lastDayOfThisMonth = new Date(year, month + 1, 0); // getMonth() は 0-11 の数字で返ってくるので +1 する
   const lastDayOfLastMonth = new Date(year, month, 0);
 
-  for (let i = 0; i < (lastDayOfLastMonth.getDay() + 1); i++) {
-    let addDay = lastDayOfLastMonth.getDate() - i;
-    days.push(addDay.toString())
+  const ChangeMonth = (value: React.MouseEvent<HTMLElement>) => {
+    if (value.currentTarget.getAttribute("value") === "<") {
+      setMonth(month - 1)
+      if (month === 0) {
+        setYear(year - 1)
+        setMonth(11)
+      }
+    } else if (value.currentTarget.getAttribute("value") === ">") {
+      setMonth(month + 1)
+      if (month === 11) {
+        setYear(year + 1)
+        setMonth(0)
+      }
+    }
   }
+
+  // カレンダー日付リストの作成
+  // まず、先月の最終日の曜日分の日数を配列 days に追加
+  for (let i = 0; i < (lastDayOfLastMonth.getDay() + 1); i++) {
+    // 土曜の場合は何もしない
+    // TODO: 土日を切り替える場合変数にする必要があると思う
+    if (lastDayOfLastMonth.getDay() === 6) {
+      break
+    } else {
+      let addDay = lastDayOfLastMonth.getDate() - i;
+      days.unshift(addDay.toString())
+    }
+  }
+  // 次に、今月の最終日分を1から配列に追加していく
   for (let i = 1; i < (lastDayOfThisMonth.getDate() + 1); i++) {
     days.push(i.toString())
   }
-  for (let i = 1; i < (41 - lastDayOfThisMonth.getDate()); i++) {
-    days.push(i.toString())
+  // 最後に、43から配列の数を引いた数分の日数を別の配列に1から追加してく propsを渡すときにconcatする
+  for (let i = 1; i < (43 - days.length); i++) {
+    daysNextMonth.push(i.toString())
   }
 
   return (
     <div>
-      <DisplayCalendar days={days} year={year} month={month} />
+      <h1>カレンダー</h1>
+      <h2>{year}年 {month + 1}月</h2>
+      <input type="button" value="<" onClick={ChangeMonth} />
+      <input type="button" value=">" onClick={ChangeMonth} />
+      <DisplayCalendar days={days.concat(daysNextMonth)} year={year} month={month} />
+      <h3>debug</h3>
+      <p>
+        year  : {year}<br />
+        month : {month}<br />
+        ldtm : {lastDayOfThisMonth.toLocaleString()}<br />
+        ldlm : {lastDayOfLastMonth.toLocaleString()}<br />
+        ldlm.getDay : {lastDayOfLastMonth.getDay() + 1}<br />
+        ldtm.length : {lastDayOfThisMonth.getDate()}<br />
+        ldlm.length : {lastDayOfLastMonth.getDate()}<br />
+        needToPush : {40 - lastDayOfThisMonth.getDate()}
+      </p>
     </div>
   )
 }
@@ -46,8 +88,6 @@ const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
 
   return (
     <>
-      <h1>カレンダー</h1>
-      <h2>{year}年 {month + 1}月</h2>
       <table>
         <thead>
           <ListContents weekList={week} contents={week} />
