@@ -7,19 +7,24 @@ const CreateCalendar: React.VFC = () => {
   const days: string[] = [];
   const daysNextMonth: string[] = [];
   const date = new Date();
-  const [year, setYear] = useState<number>(date.getFullYear());
-  const [month, setMonth] = useState<number>(date.getMonth());
+  const [year, setYear] = useState<number>(date.getFullYear()); // stateにする
+  const [month, setMonth] = useState<number>(date.getMonth()); // stateにする
   const lastDayOfThisMonth = new Date(year, month + 1, 0); // getMonth() は 0-11 の数字で返ってくるので +1 する
   const lastDayOfLastMonth = new Date(year, month, 0);
 
+  // 引数は React.MouseEvent<HTMLElement>型を入れる
+  // 値は value.currentTarget.getAttribute で取得できる
   const ChangeMonth = (value: React.MouseEvent<HTMLElement>) => {
     if (value.currentTarget.getAttribute("value") === "<") {
+      // ボタンが押されるたびに month を -1 していく
       setMonth(month - 1)
+      // 0 (= 1月)になった時点でyear を -1 して、monthを11(=12月)に戻す
       if (month === 0) {
         setYear(year - 1)
         setMonth(11)
       }
     } else if (value.currentTarget.getAttribute("value") === ">") {
+      // 逆のことをしていく
       setMonth(month + 1)
       if (month === 11) {
         setYear(year + 1)
