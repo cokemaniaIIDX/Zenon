@@ -343,3 +343,81 @@ export default Calendar;
     - return ( {いきなり処理} )はむりなので、いったん`<></>`をかませる
       - `<></>`は`フラグメント`という
         - 参考 : [フラグメント - React 公式 Document](https://ja.reactjs.org/docs/fragments.html)
+
+### 日付の作成と表示をコンポーネントで分ける
+
+ボタンを押したら前の月次の月に表示を切り替えたいので、
+日付リストを作成するコンポーネントを作成して、
+今までのコンポーネントは表示用に切り替える
+
+日付作成コンポーネントでpropsとして表示コンポーネントに渡すことで、
+ボタンを押して日付を作成しなおした結果を表示コンポーネントに渡せるので、
+月の移動が可能になる
+
+```tsx
+import React from "react";
+
+// カレンダーの日付リストを作成し、表示用コンポーネントに
+
+const CreateCalendar: React.VFC = () => {
+
+  const days: string[] = [];
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth(); // getMonth() は 0-11 の数字で返ってくるので +1 する
+  const lastDayOfThisMonth = new Date(year, month + 1, 0);
+  const lastDayOfLastMonth = new Date(year, month, 0);
+
+  for (let i = 0; i < (lastDayOfLastMonth.getDay() + 1); i++) {
+    let addDay = lastDayOfLastMonth.getDate() - i;
+    days.push(addDay.toString())
+  }
+  for (let i = 1; i < (lastDayOfThisMonth.getDate() + 1); i++) {
+    days.push(i.toString())
+  }
+  for (let i = 1; i < (41 - lastDayOfThisMonth.getDate()); i++) {
+    days.push(i.toString())
+  }
+
+  return (
+    <div>
+      <DisplayCalendar days={days} year={year} month={month} />
+    </div>
+  )
+}
+
+// カレンダーを表示するコンポーネント
+
+type DisplayCalendarProps = {
+  days: string[];
+  year: number;
+  month: number;
+}
+
+const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
+
+  const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+  const days = props.days;
+  const year = props.year
+  const month = props.month;
+
+  return (
+    <>
+      <h1>カレンダー</h1>
+      <h2>{year}年 {month + 1}月</h2>
+      <table>
+        <thead>
+          <ListContents weekList={week} contents={week} />
+        </thead>
+        <tbody>
+          <ListContents weekList={week} contents={days} />
+        </tbody>
+      </table>
+    </>
+  )
+}
+
+// 残り略
+
+export default CreateCalendar;
+```
