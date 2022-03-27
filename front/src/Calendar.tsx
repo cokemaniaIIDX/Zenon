@@ -94,12 +94,36 @@ const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
   return (
     <table>
       <thead>
-        <ListContents weekList={week} contents={week} />
+        <ListContentHeaders weekList={week} />
       </thead>
       <tbody>
         <ListContents weekList={week} contents={days} />
       </tbody>
     </table>
+  )
+}
+
+// 曜日を表示するコンポーネント
+
+type ListContentHeadersProps = {
+  weekList: string[];
+}
+
+const ListContentHeaders: React.VFC<ListContentHeadersProps> = (props) => {
+  const contents = props.weekList
+
+  return (
+    <>
+      <tr>
+        {contents.map((item, key) => {
+          return (
+            <th key={key}>
+              <DisplayContents contents={item} />
+            </th>
+          )
+        })}
+      </tr>
+    </>
   )
 }
 
@@ -128,7 +152,13 @@ const ListContents: React.VFC<ListContentsProps> = (props) => {
       {contents.map((item, key) => {
         return (
           <tr key={key}>
-            <DisplayContents contents={item} />
+            {item.map((item, key) =>{
+              return (
+                <td key={key}>
+                  <DisplayContents contents={item} />
+                </td>
+              )
+            })}
           </tr>
         )
       })}
@@ -139,19 +169,12 @@ const ListContents: React.VFC<ListContentsProps> = (props) => {
 // カレンダーの中身を表示するコンポーネント
 
 type DisplayContentsProps = {
-  contents: string[];
+  contents: string;
 }
 
 const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
-
-  const contents = props.contents
-
   return (
-    <>
-      {contents.map((item, key) =>
-        <td key={key}>{item}</td>
-      )}
-    </>
+    <>{props.contents}</>
   )
 }
 

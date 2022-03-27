@@ -124,7 +124,7 @@ const ListWeek: React.VFC<ListWeekProps> = (props) => {
 - 参考 : [interfaceとtypeの違い、そして何を使うべきかについて](https://zenn.dev/luvmini511/articles/6c6f69481c2d17)
 
 
-### コンポーネントの分離
+## コンポーネントの分離
 
 曜日(日~土)を7つ並べて表示するのと、
 1週間における日付を7つ並べて表示するのは、
@@ -193,9 +193,9 @@ const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
 }
 ```
 
-### 配列作成
+## 配列作成
 
-#### 確認
+### 確認
 
 - 2月の末と、4月のはじめを含む3月の日付配列(7 × 6 = 42要素)を作成
 - 曜日の要素数(=7)で割ってそれぞれ7日ずつの配列に分割する
@@ -344,7 +344,7 @@ export default Calendar;
       - `<></>`は`フラグメント`という
         - 参考 : [フラグメント - React 公式 Document](https://ja.reactjs.org/docs/fragments.html)
 
-### 日付の作成と表示をコンポーネントで分ける
+## 日付の作成と表示をコンポーネントで分ける
 
 ボタンを押したら前の月次の月に表示を切り替えたいので、
 日付リストを作成するコンポーネントを作成して、
@@ -434,7 +434,7 @@ const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
 export default CreateCalendar;
 ```
 
-### 月の表示切替
+## 月の表示切替
 
 `<`,`>`ボタンを押すことで月を切り替える
 
@@ -517,3 +517,127 @@ const CreateCalendar: React.VFC = () => {
   )
 }
 ```
+
+## やっぱり曜日は別コンポーネントにする & DisplayContentsはtdで表示するんじゃなくて中身だけ表示するようにする
+
+```tsx
+// カレンダーを表示するコンポーネント
+
+type DisplayCalendarProps = {
+  week: string[];
+  days: string[];
+  year: number;
+  month: number;
+}
+
+const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
+
+  const week = props.week;
+  const days = props.days;
+
+  return (
+    <table>
+      <thead>
+        <ListContentHeaders weekList={week} />
+      </thead>
+      <tbody>
+        <ListContents weekList={week} contents={days} />
+      </tbody>
+    </table>
+  )
+}
+
+// 曜日を表示するコンポーネント
+
+type ListContentHeadersProps = {
+  weekList: string[];
+}
+
+const ListContentHeaders: React.VFC<ListContentHeadersProps> = (props) => {
+  const contents = props.weekList
+
+  return (
+    <>
+      <tr>
+        {contents.map((item, key) => {
+          return (
+            <th key={key}>
+              <DisplayContents contents={item} />
+            </th>
+          )
+        })}
+      </tr>
+    </>
+  )
+}
+```
+
+テーブルヘッダー表示用のコンポーネントを作成して、
+そっちで曜日を表示するようにする
+
+```tsx
+// 曜日リスト内の要素数分、中身を表示するコンポーネント
+
+type ListContentsProps = {
+  // 曜日リストの型宣言
+  weekList: string[];
+  contents: string[];
+}
+
+const ListContents: React.VFC<ListContentsProps> = (props) => {
+
+  const listLength = props.weekList.length
+  const fullContents = props.contents
+
+  // contentsを多重配列として初期化
+  const contents: string[][] = []
+
+  for (let i = 0; i < fullContents.length / listLength; i++) {
+    contents.push(fullContents.slice(listLength*i, listLength*i + listLength))
+  }
+
+  return (
+    <>
+      {contents.map((item, key) => {
+        return (
+          <tr key={key}>
+            {item.map((item, key) =>{
+              return (
+                <td key={key}>
+                  <DisplayContents contents={item} />
+                </td>
+              )
+            })}
+          </tr>
+        )
+      })}
+    </>
+  )
+}
+
+// カレンダーの中身を表示するコンポーネント
+
+type DisplayContentsProps = {
+  contents: string;
+}
+
+const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
+  return (
+    <>{props.contents}</>
+  )
+}
+
+export default CreateCalendar;
+```
+
+DisplayContentsは単にprops.contentsを返すようにして、
+tdでくくるのはListContentsのほうで行う
+
+ちょっと見にくいかな・・・？
+まぁしゃーない
+
+## 今日の日付を強調させる&今日の月まで戻す機能
+
+
+
+# UIを整えていく
