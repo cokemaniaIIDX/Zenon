@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 const CreateCalendar: React.VFC = () => {
 
+  const week: string[] = ["日", "月", "火", "水", "木", "金", "土"];
   const days: string[] = [];
   const daysNextMonth: string[] = [];
   const date = new Date();
@@ -60,7 +61,7 @@ const CreateCalendar: React.VFC = () => {
       <h2>{year}年 {month + 1}月</h2>
       <input type="button" value="<" onClick={ChangeMonth} />
       <input type="button" value=">" onClick={ChangeMonth} />
-      <DisplayCalendar days={days.concat(daysNextMonth)} year={year} month={month} />
+      <DisplayCalendar week={week} days={days.concat(daysNextMonth)} year={year} month={month} />
       <h3>debug</h3>
       <p>
         year  : {year}<br />
@@ -79,6 +80,7 @@ const CreateCalendar: React.VFC = () => {
 // カレンダーを表示するコンポーネント
 
 type DisplayCalendarProps = {
+  week: string[];
   days: string[];
   year: number;
   month: number;
@@ -86,7 +88,7 @@ type DisplayCalendarProps = {
 
 const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
 
-  const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+  const week = props.week;
   const days = props.days;
 
   return (
@@ -125,7 +127,9 @@ const ListContents: React.VFC<ListContentsProps> = (props) => {
     <>
       {contents.map((item, key) => {
         return (
-          <tr key={key}><DisplayContents contents={item} /></tr>
+          <tr key={key}>
+            <DisplayContents contents={item} />
+          </tr>
         )
       })}
     </>
