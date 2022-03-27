@@ -22,7 +22,7 @@ const App: React.VFC = () => {
   return (
     <ChakraProvider theme={theme}>
       <ColorModeSwitcher justifySelf="flex-end" />
-      <Flex>
+      <Flex p={3}>
         <IconButton aria-label='Prev Month' icon={<ChevronLeftIcon />}/>
         <Spacer />
         <Center>2022 年  3 月</Center>
