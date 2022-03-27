@@ -88,20 +88,16 @@ const DisplayCalendar: React.VFC<DisplayCalendarProps> = (props) => {
 
   const week: string[] = ["日", "月", "火", "水", "木", "金", "土"]
   const days = props.days;
-  const year = props.year
-  const month = props.month;
 
   return (
-    <>
-      <table>
-        <thead>
-          <ListContents weekList={week} contents={week} />
-        </thead>
-        <tbody>
-          <ListContents weekList={week} contents={days} />
-        </tbody>
-      </table>
-    </>
+    <table>
+      <thead>
+        <ListContents weekList={week} contents={week} />
+      </thead>
+      <tbody>
+        <ListContents weekList={week} contents={days} />
+      </tbody>
+    </table>
   )
 }
 
@@ -149,7 +145,7 @@ const DisplayContents: React.VFC<DisplayContentsProps> = (props) => {
   return (
     <>
       {contents.map((item, key) =>
-        <th key={key}>{item}</th>
+        <td key={key}>{item}</td>
       )}
     </>
   )
