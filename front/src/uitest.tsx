@@ -16,6 +16,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import './style.css';
 
 const App: React.VFC = () => {
   return (
