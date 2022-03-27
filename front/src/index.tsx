@@ -2,13 +2,15 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { ColorModeScript } from '@chakra-ui/react';
 import Calendar from './Calendar';
+import UI from './uitest';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Calendar />
+    <UI />
+    {/* <Calendar /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
