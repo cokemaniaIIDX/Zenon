@@ -7,3 +7,4 @@ ChakraUIを使っていい感じのReactJSプロジェクトを作ります！
 ```
 $ npx create-react-app front --template @chakra-ui/typescript
 ```
+
