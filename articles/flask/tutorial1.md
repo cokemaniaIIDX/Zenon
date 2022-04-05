@@ -47,3 +47,25 @@ def create_app(test_config=None):
    1. Flaskはインスタンスフォルダを自動で作成しないので、DBファイルの保存フォルダを明示的に指定して作成する必要がある
 
 5. `app.route()`: なんとなくでもうわかるけど `/(パス)`によって関数を返すルートを作成する
+
+## Helloアプリ、起動！
+
+この時点でFlaskアプリを起動できる
+トップのディレクトリで実行する
+
+```
+$ export FLASK_APP=flaskr
+$ export FLASK_ENV=development
+$ flask run
+
+ * Serving Flask app 'flaskr' (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 115-924-183
+```
+
+`http://127.0.0.1:5000/hello`にアクセス
+→Hello, World! が表示されればOK
