@@ -78,6 +78,7 @@ def init_db_command():
 
 - init_db(): get_db()を呼んでDBを選択、schema.sqlを読み込ませる
 - init_db_command(): init_db()が成功したときにメッセージを表示する関数
+  - click.command('init-db'): `flask`コマンドで実行できるようにする この場合 `flask init-db` で init_db_command()が実行される
 
 ## アプリへの登録
 
@@ -88,6 +89,9 @@ def init_app(app):
 ```
 
 よくわからん とりあえずこの関数をアプリ側から呼ぶ!
+  →これらの関数は自作のものなので、Flaskインスタンスに登録しないと実行できない
+  - teardown_appcontex(関数名): レスポンスを返した後のクリーンアップ時に指定した関数を呼ぶ
+  - cli.add_command(関数名): flask <command> のコマンドを追加できる
 
 ```py:__init__.py
 import os
