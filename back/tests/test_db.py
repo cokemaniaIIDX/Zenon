@@ -13,7 +13,7 @@ def test_get_close_db(app):
 
   assert 'closed' in str(e.value)
 
-def test_init_db_command(runnser, monkeypatch):
+def test_init_db_command(runner, monkeypatch):
   class Recorder(object):
     called = False
 
@@ -21,6 +21,6 @@ def test_init_db_command(runnser, monkeypatch):
     Recorder.called = True
 
   monkeypatch.setattr('flaskr.db.init_db', fake_init_db)
-  result = runnser.invoke(args=['init-db'])
+  result = runner.invoke(args=['init-db'])
   assert 'Initialized' in result.output
   assert Recorder.called
