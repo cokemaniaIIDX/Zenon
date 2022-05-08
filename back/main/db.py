@@ -1,4 +1,14 @@
 from google.cloud import datastore
 
-def create_client(project_id):
-  return datastore.Client(project_id)
+datastore_client = datastore.Client()
+
+kind = "Task"
+name = "sampletask1"
+task_key = datastore_client.key(kind, name)
+
+task = datastore.Entity(key=task_key)
+task["description"] = "Buy milk"
+
+datastore_client.put(task)
+
+print(f"Saved {task.key.name}: {task['description']}")
