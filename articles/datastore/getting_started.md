@@ -13,7 +13,7 @@ FlaskでDatastoreを利用するために、
 仮想環境がある場合は仮想環境に入る
 $ source venv/bin/activate
 
-(venv) $ pip install --upgrade google-cloud-datastore google-api-python-client
+(venv) $ pip install --upgrade google-cloud-datastore
 
 (venv) $ pip list | grep datastore
 google-cloud-datastore   2.5.1
@@ -101,4 +101,4 @@ Saved sampletask1: Buy milk
 
 コンソールで確認してみると、作成されていることが分かる
 
-![datastore.png]
+![datastore.png](datastore.png)
