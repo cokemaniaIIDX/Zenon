@@ -2,13 +2,15 @@ from google.cloud import datastore
 
 datastore_client = datastore.Client()
 
-kind = "Task"
-name = "sampletask1"
-task_key = datastore_client.key(kind, name)
+kind = "menu"
+name = "oyakodon"
+menu_key = datastore_client.key(kind, name)
 
-task = datastore.Entity(key=task_key)
-task["description"] = "Buy milk"
+menu = datastore.Entity(key=menu_key)
+menu["ingredients"] = ["egg", "chicken", "onion",]
+menu["price"] = "300yen"
 
-datastore_client.put(task)
+datastore_client.put(menu)
 
-print(f"Saved {task.key.name}: {task['description']}")
+print(f"Saved {menu.key.name}: {menu['ingredients']}")
+print(f"Saved {menu.key.name}: {menu['price']}")
