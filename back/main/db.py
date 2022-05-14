@@ -8,7 +8,7 @@ menu_key = datastore_client.key(kind, name)
 
 menu = datastore.Entity(key=menu_key)
 menu["ingredients"] = ["egg", "chicken", "onion",]
-menu["price"] = "300yen"
+menu["price"] = 300
 
 datastore_client.put(menu)
 
