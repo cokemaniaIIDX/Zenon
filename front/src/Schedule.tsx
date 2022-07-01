@@ -12,18 +12,54 @@ const Schedule: React.VFC = () => {
   const dayOfTomorror = week[tomorrow.getDay()];
   const dayOfTheDayAfterTomorrow = week[theDayAfterTomorrow.getDay()];
 
+  const ShowMenu = () => {
+    const menu = document.getElementById("menu")
+
+
+  }
+
   return (
     <>
-      <h1>Schedule</h1>
-      <h2>{year} / {month + 1}</h2>
-      <div>today: {today.getDate()} ({dayOfToday})</div>
-      <div>tomorrow: {tomorrow.getDate()} ({dayOfTomorror})</div>
-      <div>the day after tomorrow: {theDayAfterTomorrow.getDate()} ({dayOfTheDayAfterTomorrow})</div>
+      <div>
+        <h1>Schedule</h1>
+        <h2>{year} / {month + 1}</h2>
+        <div>today: {today.getDate()} ({dayOfToday})</div>
+        <div>tomorrow: {tomorrow.getDate()} ({dayOfTomorror})</div>
+        <div>the day after tomorrow: {theDayAfterTomorrow.getDate()} ({dayOfTheDayAfterTomorrow})</div>
+      </div>
 
-      <p>
+      <div>
+        <h2>time table</h2>
+        <div>
+          <h4>7:00</h4>
+          <div>
+            <p>朝ごはん</p>
+            <p>・ごはん</p>
+            <p>・みそ汁</p>
+            <p>・焼き鮭</p>
+          </div>
+          <h4>12:00</h4>
+          <div>
+            <button onClick={ShowMenu}>追加</button>
+          </div>
+          <h4>19:00</h4>
+        </div>
+      </div>
+      
+      <div id="menu">
+        <form>
+          <label>料理名: </label>
+          <input type="text" />
+        </form>
+      </div>
+
+      <div>
+        <h3>debug</h3>
+        <p>
         year  : {year}<br />
         month : {month}<br />
-      </p>
+        </p>
+      </div>
     </>
   )
 }
