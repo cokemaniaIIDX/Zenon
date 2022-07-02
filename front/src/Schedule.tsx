@@ -67,7 +67,7 @@ const Calendar: React.VFC<CalendarProps> = (props) => {
 
   return (
     <>
-      <Text fontSize='4xl'>{month + 1}月</Text>
+      <Text>{month + 1}月</Text>
       <div>今日 : {props.dateToday.getDate()} ({weekList[props.dateToday.getDay()]})</div>
       <div>明日 : {dateTomo.getDate()} ({weekList[dateTomo.getDay()]})</div>
       <div>明後日 : {dateTDAT.getDate()} ({weekList[dateTDAT.getDay()]})</div>
