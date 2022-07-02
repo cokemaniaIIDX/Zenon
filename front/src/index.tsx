@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { ColorModeScript } from '@chakra-ui/react';
+import { ColorModeScript, ChakraProvider } from '@chakra-ui/react';
 import Calendar from './Calendar';
 import UI from './uitest';
 import reportWebVitals from './reportWebVitals';
@@ -11,7 +11,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     {/* <UI /> */}
-    <Schedule />
+    <ChakraProvider>
+      <Schedule />
+    </ChakraProvider>
     {/* <Calendar /> */}
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,4 +1,15 @@
 import React, { useState } from "react";
+import {
+  Button,
+  Box,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerBody,
+  Text,
+  useDisclosure
+} from "@chakra-ui/react";
 
 const Schedule: React.VFC = () => {
 
@@ -12,11 +23,7 @@ const Schedule: React.VFC = () => {
   const dayOfTomorror = week[tomorrow.getDay()];
   const dayOfTheDayAfterTomorrow = week[theDayAfterTomorrow.getDay()];
 
-  const ShowMenu = () => {
-    const menu = document.getElementById("menu")
-
-
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -40,17 +47,21 @@ const Schedule: React.VFC = () => {
           </div>
           <h4>12:00</h4>
           <div>
-            <button onClick={ShowMenu}>追加</button>
+            <Button onClick={onOpen} colorScheme='teal'>Open Menu</Button>
+            <Drawer placement='bottom' onClose={onClose} isOpen={isOpen}>
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerHeader borderBottomWidth='1px'>Menu</DrawerHeader>
+                <DrawerBody>
+                  <Box bg='orange.100' maxW='100px' maxH='100px' borderRadius='10px' boxShadow='lg'>
+                    <Text>親子丼</Text>
+                  </Box>
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
           </div>
           <h4>19:00</h4>
         </div>
-      </div>
-      
-      <div id="menu">
-        <form>
-          <label>料理名: </label>
-          <input type="text" />
-        </form>
       </div>
 
       <div>
