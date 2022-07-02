@@ -20,7 +20,6 @@ const Schedule: React.VFC = () => {
   return (
     <>
       <div>
-        <h1>Schedule</h1>
         <Calendar dateToday={dateToday} />
       </div>
       <div>
@@ -68,7 +67,7 @@ const Calendar: React.VFC<CalendarProps> = (props) => {
 
   return (
     <>
-      <h2>{year} / {month + 1}</h2>
+      <Text fontSize='4xl'>{month + 1}月</Text>
       <div>今日 : {props.dateToday.getDate()} ({weekList[props.dateToday.getDay()]})</div>
       <div>明日 : {dateTomo.getDate()} ({weekList[dateTomo.getDay()]})</div>
       <div>明後日 : {dateTDAT.getDate()} ({weekList[dateTDAT.getDay()]})</div>

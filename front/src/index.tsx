@@ -1,18 +1,21 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { ColorModeScript, ChakraProvider } from '@chakra-ui/react';
+import { ColorModeScript, ChakraProvider, Box } from '@chakra-ui/react';
 import Calendar from './Calendar';
 import UI from './uitest';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import Schedule from './Schedule';
+import theme from './theme'
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     {/* <UI /> */}
-    <ChakraProvider>
-      <Schedule />
+    <ChakraProvider theme={theme}>
+      <Box width='100%' background='#F4F4F4'>
+        <Schedule />
+      </Box>
     </ChakraProvider>
     {/* <Calendar /> */}
   </React.StrictMode>,
