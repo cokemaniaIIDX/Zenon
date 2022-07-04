@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './style.css'
 import {
   Button,
@@ -59,7 +60,10 @@ const Calendar: React.VFC = () => {
   const dateToday: Date = new Date();
   const year: number = dateToday.getFullYear();
   const month: number = dateToday.getMonth();
-  const selectedDate: number = dateToday.getDate();
+  const [selectedDate, setSelectedDate] = useState<number>(dateToday.getDate());
+  const SetSelectedDate = (props: number) => {
+    setSelectedDate(props)
+  }
 
   for(let i = 0; i < dateLength; i++){
     dateList.push(new Date(year, month, dateToday.getDate() + i))    
@@ -74,7 +78,7 @@ const Calendar: React.VFC = () => {
         <Text fontFamily='Khula' fontWeight='bold' fontSize='3xl'>{month + 1}月</Text>
       </Center>
       <Center overflow='auto'>
-        {dateList.map((value) => <DateBlock date={value} selectedDate={selectedDate} />)}
+        {dateList.map((value) => <DateBlock date={value} selectedDate={selectedDate} SetSelectedDate={SetSelectedDate} />)}
       </Center>
       <div>
         <h3>debug</h3>
@@ -91,6 +95,7 @@ const Calendar: React.VFC = () => {
 type DateBlockProps = {
   date: Date;
   selectedDate: number;
+  SetSelectedDate: (props: number) => void;
 }
 
 const DateBlock: React.VFC<DateBlockProps> = (props) => {
@@ -128,6 +133,7 @@ const DateBlock: React.VFC<DateBlockProps> = (props) => {
       boxSize='64px'
       borderRadius='10'
       shadow={property.shadow}
+      onClick={() => props.SetSelectedDate(displayDate)}
     >
     <Center>
       <Box fontFamily='Khula' lineHeight='90%' fontWeight='bold' fontSize='2xl' color={property.color}>{displayDate}</Box>
