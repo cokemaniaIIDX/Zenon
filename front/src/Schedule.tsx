@@ -57,7 +57,6 @@ const Calendar: React.VFC = () => {
   const dateLength: number = 3;
   const dateList: Date[] = [];
   const dateToday: Date = new Date();
-  const weekList: string[] = ["日", "月", "火", "水", "木", "金", "土"];
   const year: number = dateToday.getFullYear();
   const month: number = dateToday.getMonth();
   const selectedDate: number = dateToday.getDate();
@@ -95,32 +94,30 @@ type DateBlockProps = {
 }
 
 const DateBlock: React.VFC<DateBlockProps> = (props) => {
-
+  const dayList: string[] = ["日", "月", "火", "水", "木", "金", "土"];
   const date: Date = props.date;
+  const displayDate: number = date.getDate();
+  const displayDay: string = dayList[date.getDay()];
   const selectedDate: number = props.selectedDate;
   let property;
 
-  const property1 = {
+  const propertySelected = {
     bg: '#E96565',
-    date: date.getDate(),
-    day: '月',
     color: 'white',
     shadow: 'inset 6px 6px 13px #c65656, inset -6px -6px 13px #ff7474'
   }
 
-  const property2 = {
+  const propertyDefault = {
     bg: '#F4F4F4',
-    date: date.getDate(),
-    day: '火',
     color: '#363636',
     shadow: '6px 6px 13px #cfcfcf, -6px -6px 13px #ffffff'
   }
 
-  if (selectedDate == date.getDate()) {
-    property = property1
+  if (selectedDate == displayDate) {
+    property = propertySelected
   }
   else {
-    property = property2
+    property = propertyDefault
   }
 
   return (
@@ -133,10 +130,10 @@ const DateBlock: React.VFC<DateBlockProps> = (props) => {
       shadow={property.shadow}
     >
     <Center>
-      <Box fontFamily='Khula' lineHeight='90%' fontWeight='bold' fontSize='2xl' color={property.color}>{property.date}</Box>
+      <Box fontFamily='Khula' lineHeight='90%' fontWeight='bold' fontSize='2xl' color={property.color}>{displayDate}</Box>
     </Center>
     <Center>
-      <Box color={property.color} fontSize='xs'>({property.day})</Box>
+      <Box color={property.color} fontSize='xs'>({displayDay})</Box>
     </Center>
     </Box>
   )
