@@ -1,56 +1,20 @@
 import React, { useState } from 'react';
 import './style.css'
 import {
-  Button,
   Box,
   Center,
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerBody,
   Text,
-  useDisclosure
 } from "@chakra-ui/react";
 
 const Schedule: React.VFC = () => {
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
-    <>
-      <div>
-        <Calendar />
-      </div>
-      <div>
-        <h2>time table</h2>
-        <div>
-          <h4>7:00</h4>
-          <div>
-            <p>朝ごはん</p>
-            <p>・ごはん</p>
-            <p>・みそ汁</p>
-            <p>・焼き鮭</p>
-          </div>
-          <h4>12:00</h4>
-          <div>
-            <Button onClick={onOpen} colorScheme='teal'>Open Menu</Button>
-            <Drawer placement='bottom' onClose={onClose} isOpen={isOpen}>
-              <DrawerOverlay />
-              <DrawerContent>
-                <DrawerHeader borderBottomWidth='1px'>Menu</DrawerHeader>
-                <DrawerBody>
-                  <Box bg='orange.100' maxW='100px' maxH='100px' borderRadius='10px' boxShadow='lg'>
-                    <Text>親子丼</Text>
-                  </Box>
-                </DrawerBody>
-              </DrawerContent>
-            </Drawer>
-          </div>
-          <h4>19:00</h4>
-        </div>
-      </div>
-    </>
+    <div>
+      <Center>
+        <Box p='5'>head</Box>
+      </Center>
+      <Calendar />
+    </div>
   )
 }
 
@@ -72,22 +36,11 @@ const Calendar: React.VFC = () => {
   return (
     <>
       <Center>
-        <Box w='40px' h='40px'>head</Box>
-      </Center>
-      <Center>
         <Text fontFamily='Khula' fontWeight='bold' fontSize='3xl'>{month + 1}月</Text>
       </Center>
       <Center overflow='auto'>
         {dateList.map((value) => <DateBlock date={value} selectedDate={selectedDate} SetSelectedDate={SetSelectedDate} />)}
       </Center>
-      <div>
-        <h3>debug</h3>
-        <p>
-          year  : {year}<br />
-          month : {month}<br />
-          dateList : {dateList[0].getDate()}
-        </p>
-      </div>
     </>
   )
 }

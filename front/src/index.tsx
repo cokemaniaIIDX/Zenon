@@ -1,8 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { ColorModeScript, ChakraProvider, Box } from '@chakra-ui/react';
-import Calendar from './Calendar';
-import UI from './uitest';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import Schedule from './Schedule';
@@ -10,13 +8,11 @@ import Schedule from './Schedule';
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    {/* <UI /> */}
     <ChakraProvider>
       <Box width='100%' background='#F4F4F4' color='#363636' fontFamily='Khula'>
         <Schedule />
       </Box>
     </ChakraProvider>
-    {/* <Calendar /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
