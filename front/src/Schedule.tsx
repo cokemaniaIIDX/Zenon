@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import './style.css'
 import {
   Button,
   Box,
+  Center,
   Drawer,
   DrawerContent,
   DrawerHeader,
@@ -13,14 +14,12 @@ import {
 
 const Schedule: React.VFC = () => {
 
-  const dateToday: Date = new Date();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <div>
-        <Calendar dateToday={dateToday} />
+        <Calendar />
       </div>
       <div>
         <h2>time table</h2>
@@ -54,21 +53,26 @@ const Schedule: React.VFC = () => {
   )
 }
 
-type CalendarProps = {
-  dateToday: Date;
-}
-
-const Calendar: React.VFC<CalendarProps> = (props) => {
+const Calendar: React.VFC = () => {
+  const dateToday: Date = new Date();
   const weekList: string[] = ["日", "月", "火", "水", "木", "金", "土"];
-  const year = props.dateToday.getFullYear();
-  const month = props.dateToday.getMonth();
-  const dateTomo = new Date(year, month, props.dateToday.getDate() + 1)
-  const dateTDAT = new Date(year, month, props.dateToday.getDate() + 2)
+  const year = dateToday.getFullYear();
+  const month = dateToday.getMonth();
+  const dateTomo = new Date(year, month, dateToday.getDate() + 1)
+  const dateTDAT = new Date(year, month, dateToday.getDate() + 2)
 
   return (
     <>
-      <Text>{month + 1}月</Text>
-      <div>今日 : {props.dateToday.getDate()} ({weekList[props.dateToday.getDay()]})</div>
+      <Center>
+        <Box w='40px' h='40px'>head</Box>
+      </Center>
+      <Center>
+        <Text fontFamily='Khula' fontWeight='bold' fontSize='3xl'>{month + 1}月</Text>
+      </Center>
+      <Center>
+        <DateBlock />
+      </Center>
+      <div>今日 : {dateToday.getDate()} ({weekList[dateToday.getDay()]})</div>
       <div>明日 : {dateTomo.getDate()} ({weekList[dateTomo.getDay()]})</div>
       <div>明後日 : {dateTDAT.getDate()} ({weekList[dateTDAT.getDay()]})</div>
       <div>
@@ -79,6 +83,36 @@ const Calendar: React.VFC<CalendarProps> = (props) => {
         </p>
       </div>
     </>
+  )
+}
+
+const DateBlock: React.VFC = () => {
+
+  const property = {
+    bg: '#E96565',
+    date: 4,
+    day: '月',
+    color: 'white',
+    shadow: 'inset 6px 6px 13px #c65656, inset -6px -6px 13px #ff7474'
+  }
+
+  return (
+    <Box
+      bg={property.bg}
+      p='3.5'
+      m='3'
+      boxSize='64px'
+      borderRadius='15'
+      shadow={property.shadow}
+      background='#E96565'
+    >
+      <Center>
+        <Box fontFamily='Khula' lineHeight='90%' fontWeight='bold' fontSize='2xl' color={property.color}>{property.date}</Box>
+      </Center>
+      <Center>
+        <Box color={property.color} fontSize='xs'>({property.day})</Box>
+      </Center>
+    </Box>
   )
 }
 

@@ -6,14 +6,13 @@ import UI from './uitest';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import Schedule from './Schedule';
-import theme from './theme'
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     {/* <UI /> */}
-    <ChakraProvider theme={theme}>
-      <Box width='100%' background='#F4F4F4'>
+    <ChakraProvider>
+      <Box width='100%' background='#F4F4F4' color='#363636' fontFamily='Khula'>
         <Schedule />
       </Box>
     </ChakraProvider>
