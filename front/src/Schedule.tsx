@@ -8,9 +8,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerBody,
-  Flex,
   Text,
-  Spacer,
   useDisclosure
 } from "@chakra-ui/react";
 import { Interface } from 'readline';
@@ -63,6 +61,7 @@ const Calendar: React.VFC = () => {
   const weekList: string[] = ["日", "月", "火", "水", "木", "金", "土"];
   const year: number = dateToday.getFullYear();
   const month: number = dateToday.getMonth();
+  const select: boolean = false;
 
   for(let i = 0; i < dateLength; i++){
     dateList.push(new Date(year, month, dateToday.getDate() + i))    
@@ -76,9 +75,9 @@ const Calendar: React.VFC = () => {
       <Center>
         <Text fontFamily='Khula' fontWeight='bold' fontSize='3xl'>{month + 1}月</Text>
       </Center>
-      <Flex>
+      <Center overflow='auto'>
         {dateList.map((value) => <DateBlock date={value} />)}
-      </Flex>
+      </Center>
       <div>
         <h3>debug</h3>
         <p>
@@ -97,9 +96,11 @@ type DateBlockProps = {
 
 const DateBlock: React.VFC<DateBlockProps> = (props) => {
 
+  const date = props.date
+
   const property1 = {
     bg: '#E96565',
-    date: props.date.getDate(),
+    date: date.getDate(),
     day: '月',
     color: 'white',
     shadow: 'inset 6px 6px 13px #c65656, inset -6px -6px 13px #ff7474'
@@ -114,24 +115,21 @@ const DateBlock: React.VFC<DateBlockProps> = (props) => {
   }
 
   return (
-    <>
-      <Box
-        bg={property1.bg}
-        p='3.5'
-        m='3'
-        boxSize='64px'
-        borderRadius='10'
-        shadow={property1.shadow}
-      >
-      <Center>
-        <Box fontFamily='Khula' lineHeight='90%' fontWeight='bold' fontSize='2xl' color={property1.color}>{property1.date}</Box>
-      </Center>
-      <Center>
-        <Box color={property1.color} fontSize='xs'>({property1.day})</Box>
-      </Center>
-      </Box>
-      <Spacer />
-    </>
+    <Box
+      bg={property1.bg}
+      p='3.5'
+      m='3'
+      boxSize='64px'
+      borderRadius='10'
+      shadow={property1.shadow}
+    >
+    <Center>
+      <Box fontFamily='Khula' lineHeight='90%' fontWeight='bold' fontSize='2xl' color={property1.color}>{property1.date}</Box>
+    </Center>
+    <Center>
+      <Box color={property1.color} fontSize='xs'>({property1.day})</Box>
+    </Center>
+    </Box>
   )
 }
 
