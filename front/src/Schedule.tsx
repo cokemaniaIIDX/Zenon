@@ -27,10 +27,7 @@ const Header: React.VFC = () => {
   
   return (
     <>
-      <Center>
-        <Box p='5'></Box>
-      </Center>
-      <Flex>
+      <Flex pt={12} mb={3}>
         <ArrowBackIcon w={8} h={8} ml={10} />
         <Spacer />
         <Avatar size={"sm"} mr={10} name={avatarName} src={avatarImageSrc} />
@@ -56,10 +53,10 @@ const Calendar: React.VFC = () => {
 
   return (
     <>
-      <Center>
+      <Center mb={3}>
         <Text fontFamily='Khula' fontWeight='bold' fontSize='3xl'>{month + 1}月</Text>
       </Center>
-      <Center overflow='auto'>
+      <Center overflow='auto' mb={3}>
         {dateList.map((value) => <DateBlock date={value} selectedDate={selectedDate} SetSelectedDate={SetSelectedDate} />)}
       </Center>
     </>
@@ -102,13 +99,13 @@ const DateBlock: React.VFC<DateBlockProps> = (props) => {
   return (
     <Box
       bg={property.bg}
-      pt='4'
-      pl='5'
-      pr='5'
-      m='3'
-      mr='6'
-      boxSize='64px'
-      borderRadius='10'
+      pt={4}
+      pl={5}
+      pr={5}
+      m={3}
+      mr={6}
+      boxSize={16}
+      borderRadius={10}
       shadow={property.shadow}
       onClick={() => props.SetSelectedDate(displayDate)}
     >
