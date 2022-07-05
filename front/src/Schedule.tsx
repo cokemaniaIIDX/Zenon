@@ -1,20 +1,41 @@
 import React, { useState } from 'react';
 import './style.css'
 import {
+  Avatar,
   Box,
   Center,
+  Flex,
+  Spacer,
   Text,
 } from "@chakra-ui/react";
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const Schedule: React.VFC = () => {
 
   return (
     <div>
-      <Center>
-        <Box p='5'>head</Box>
-      </Center>
+      <Header />
       <Calendar />
     </div>
+  )
+}
+
+const Header: React.VFC = () => {
+  
+  const avatarImageSrc: string = 'https://broken-link';
+  const avatarName: string = 'Sasuke Uchiha';
+  
+  return (
+    <>
+      <Center>
+        <Box p='5'></Box>
+      </Center>
+      <Flex>
+        <ArrowBackIcon w={8} h={8} ml={10} />
+        <Spacer />
+        <Avatar size={"sm"} mr={10} name={avatarName} src={avatarImageSrc} />
+      </Flex>
+    </>
   )
 }
 
@@ -81,8 +102,11 @@ const DateBlock: React.VFC<DateBlockProps> = (props) => {
   return (
     <Box
       bg={property.bg}
-      p='3.5'
+      pt='4'
+      pl='5'
+      pr='5'
       m='3'
+      mr='6'
       boxSize='64px'
       borderRadius='10'
       shadow={property.shadow}
