@@ -13,10 +13,10 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 const Schedule: React.VFC = () => {
 
   return (
-    <div>
+    <>
       <Header />
       <Calendar />
-    </div>
+    </>
   )
 }
 
